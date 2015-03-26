@@ -5,20 +5,10 @@ var path = require ('path');
 
 var myOwnList = undefined
 
-
-
-
 fs.readdir(path.normalize(fullpath), function doneReading(err, myOwnList){
   if (err) return CB(err);
-  var searchPattern = new RegExp('\.'+extension+'$');
-  var myResultList = new Array();
-  for (var i = 0;i < myOwnList.length; i++){
-    if (searchPattern.test(myOwnList[i])){
-//        console.log(myOwnList[i]);
-        myResultList.push(myOwnList[i]);
-    }
+  myOwnList = myOwnList.filter(function (line){return path.extname(line) === '.' + extension})
+  CB(null, myOwnList);
   }
-  CB(null, myResultList);
-  });
-
+)
 }
